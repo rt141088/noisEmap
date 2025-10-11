@@ -1,0 +1,6 @@
+@NoisEmap.Api_HostAddress = http://localhost:5055
+
+GET {{NoisEmap.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
