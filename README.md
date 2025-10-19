@@ -17,7 +17,7 @@ auxiliando no planejamento urbano e políticas ambientais.
 - **Infrastructure:** Banco de dados, repositórios e contexto
 
 ## 🧰 Tecnologias
-- ASP.NET Core 8.0
+- ASP.NET Core 9.0
 - Entity Framework Core
 - Swagger / OpenAPI
 - C#

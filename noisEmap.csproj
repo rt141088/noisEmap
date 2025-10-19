@@ -6,10 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.20" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.9" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+<ItemGroup>
+    <ProjectReference Include="..\NoisEmap.Application\NoisEmap.Application.csproj" />
+    <ProjectReference Include="..\NoisEmap.Domain\NoisEmap.Domain.csproj" />
+    <ProjectReference Include="..\NoisEmap.Infrastructure\NoisEmap.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,51 +1,50 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using NoisEmap.Domain.Entities;
 using NoisEmap.Domain.Interfaces;
-using NoisEmap.Infrastructure.Data;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace NoisEmap.Infrastructure.Repositories
 {
     public class MapRepository : IMapRepository
     {
-        private readonly NoisEmapDbContext _context;
+        private readonly List<MapProject> _projects = new List<MapProject>();
 
-        public MapRepository(NoisEmapDbContext context)
+        public async Task<IEnumerable<MapProject>> GetAllAsync()
         {
-            _context = context;
+            // Simulação de acesso ao banco
+            return await Task.FromResult(_projects);
         }
 
-        public async Task<IEnumerable<MapProjects>> GetAllMapProjectsAsync()
+        public async Task<MapProject> GetByIdAsync(int id)
         {
-            return await _context.MapProjects.ToListAsync();
+            var project = _projects.Find(p => p.Id == id);
+            return await Task.FromResult(project);
         }
 
-        public async Task<MapProjects> GetMapProjectByIdAsync(int id)
+        public async Task AddAsync(MapProject project)
         {
-            return await _context.MapProjects.FindAsync(id);
+            _projects.Add(project);
+            await Task.CompletedTask;
         }
 
-        public async Task AddMapProjectAsync(MapProjects mapProject)
+        public async Task UpdateAsync(MapProject project)
         {
-            await _context.MapProjects.AddAsync(mapProject);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateMapProjectAsync(MapProjects mapProject)
-        {
-            _context.MapProjects.Update(mapProject);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteMapProjectAsync(int id)
-        {
-            var mapProject = await _context.MapProjects.FindAsync(id);
-            if (mapProject != null)
+            var existing = _projects.Find(p => p.Id == project.Id);
+            if (existing != null)
             {
-                _context.MapProjects.Remove(mapProject);
-                await _context.SaveChangesAsync();
+                existing.NomeProjeto = project.NomeProjeto;
+                existing.Descricao = project.Descricao;
             }
+            await Task.CompletedTask;
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var project = _projects.Find(p => p.Id == id);
+            if (project != null)
+                _projects.Remove(project);
+
+            await Task.CompletedTask;
         }
     }
 }

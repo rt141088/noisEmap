@@ -1,10 +1,9 @@
-﻿namespace NoisEmap.Application.DTOs
+﻿namespace NoisEmap.Application.Dtos // <--- ATENÇÃO AO NOME: Dtos
 {
-    public class MarkerDto
+    public class MapDto
     {
         public int Id { get; set; }
         public string Nome { get; set; } = string.Empty;
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public string Descricao { get; set; } = string.Empty;
     }
 }
