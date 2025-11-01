@@ -1,9 +1,11 @@
 🎧 NoisEmap - Sistema de Mapeamento Sonoro Urbano
 
 Disciplina: Advanced Business Development with .NET
-Professor: —
-Aluno: Rafael Terra Teodoro (RM560955)
-
+Professor: — Marcel Stefan Wagner
+Alunos: Rafael Terra Teodoro (RM560955)
+        Enzo Elia Tarraga (RM560901)
+        Otoniel Arantes Barbado (RM560112)
+        
 🎯 Objetivo
 
 O projeto NoisEmap tem como propósito permitir o registro, visualização e análise de níveis de ruído em áreas urbanas, fornecendo dados que possam apoiar o planejamento urbano sustentável e políticas públicas ambientais.
