@@ -1,47 +1,55 @@
-🎧 NoisEmap - Sistema de Mapeamento Sonoro Urbano
+🎧 NoisEmap — Sistema de Mapeamento Sonoro Urbano
 
 Disciplina: Advanced Business Development with .NET
-Professor: — Marcel Stefan Wagner
-Alunos: Rafael Terra Teodoro (RM560955)
-        Enzo Elia Tarraga (RM560901)
-        Otoniel Arantes Barbado (RM560112)
-        
+Professor: Marcel Stefan Wagner
+Alunos:
+
+Rafael Terra Teodoro (RM560955)
+
+Enzo Elia Tarraga (RM560901)
+
+Otoniel Arantes Barbado (RM560112)
+
 🎯 Objetivo
 
-O projeto NoisEmap tem como propósito permitir o registro, visualização e análise de níveis de ruído em áreas urbanas, fornecendo dados que possam apoiar o planejamento urbano sustentável e políticas públicas ambientais.
+O NoisEmap é uma aplicação voltada para o monitoramento, registro e análise de níveis de ruído em áreas urbanas, promovendo o uso de dados ambientais para apoiar o planejamento urbano sustentável e a criação de políticas públicas de redução da poluição sonora.
 
 📦 Escopo e Entregas
-🧩 Entrega 1 – Estrutura e Arquitetura do Projeto
+🧩 Sprint 1 — Estrutura e Arquitetura do Projeto
 
-Estrutura em camadas (Clean Architecture):
+Implementações realizadas:
+
+Estruturação completa em camadas seguindo o padrão Clean Architecture:
 
 Domain: Entidades e interfaces de contrato
 
 Application: Regras de negócio e serviços
 
-Infrastructure: Persistência e repositórios
+Infrastructure: Persistência de dados e repositórios
 
 API: Exposição de endpoints e configuração do Swagger
 
-Configuração de Entity Framework Core com SQL Server
+Configuração do Entity Framework Core com SQL Server LocalDB
 
-Injeção de dependência entre camadas
+Implementação da injeção de dependência entre camadas
 
-Swagger configurado e funcional
+Configuração e funcionamento do Swagger para documentação automática da API
 
-🚀 Entrega 2 – Implementação da Camada Web (ASP.NET Core Web API)
+🚀 Sprint 2 — Implementação da Camada Web (ASP.NET Core Web API)
 
-Criação de Controllers RESTful com operações CRUD completas
+Entregas realizadas:
 
-Implementação da rota de busca com paginação e filtros
+Criação dos Controllers RESTful com operações CRUD completas
+
+Implementação de busca com paginação e filtros dinâmicos
 
 Aplicação de HATEOAS nas respostas da API
 
-Atualização do README.md e instruções de instalação
+Testes de endpoints via Swagger e Postman
 
-Testes básicos de endpoints via Swagger/Postman
+Atualização do README.md e adição de instruções completas de execução
 
-🧱 Arquitetura (Clean Architecture)
+🧱 Arquitetura do Projeto (Clean Architecture)
 NoisEmap
 │
 ├── NoisEmap.API              # Camada de apresentação (Controllers, Swagger)
@@ -61,34 +69,32 @@ C# 12
 
 SQL Server Express LocalDB
 
-Dependency Injection e Clean Architecture
+Dependency Injection
+
+Clean Architecture
 
 🔧 Instruções de Instalação e Execução
-
-Clonar o repositório:
-
+1️⃣ Clonar o repositório
 git clone https://github.com/seuusuario/noisemap.git
 cd noisemap
 
+2️⃣ Configurar o banco de dados
 
-Configurar o banco de dados no appsettings.json:
+Edite o arquivo appsettings.json na camada API e atualize a string de conexão:
 
 "ConnectionStrings": {
-    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=NoisEmapDb;Trusted_Connection=True;"
+  "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=NoisEmapDb;Trusted_Connection=True;"
 }
 
-
-Executar as migrations:
-
+3️⃣ Executar as migrations
 dotnet ef database update
 
-
-Rodar o projeto:
-
+4️⃣ Rodar o projeto
 dotnet run
 
+5️⃣ Acessar o Swagger
 
-Acessar a documentação da API (Swagger):
+Abra no navegador:
 
 https://localhost:5001/swagger
 
@@ -103,7 +109,9 @@ GET	/api/map/search?termo=centro&page=1&pageSize=10	Pesquisa com paginação e f
 🧠 Exemplo de Requisição (POST)
 
 Endpoint:
+
 POST /api/map
+
 
 Body JSON:
 
@@ -132,38 +140,40 @@ Resposta:
   }
 }
 
-🧪 Testes Básicos Realizados
-Teste	Resultado Esperado	Situação
+🧪 Testes Realizados
+Teste	Resultado Esperado	Status
 Criar novo mapa (POST)	Retorna 201 Created com objeto salvo	✅ OK
 Listar todos os mapas (GET)	Retorna lista de objetos	✅ OK
-Buscar por ID (GET /{id})	Retorna o item com ID específico	✅ OK
+Buscar por ID (GET /{id})	Retorna o item correto	✅ OK
 Atualizar mapa (PUT)	Retorna 204 No Content	✅ OK
 Deletar mapa (DELETE)	Retorna 204 No Content	✅ OK
 Buscar com termo (Search)	Retorna lista filtrada e paginada	✅ OK
-Swagger carregando	Interface funcional de testes	✅ OK
+Swagger carregando	Interface funcional	✅ OK
 📈 Progresso do Desenvolvimento
 Entrega	Implementações	Status
-1ª Entrega	Estrutura base, entidades, DI e EF Core	✅ Concluída
-2ª Entrega	Controllers, CRUD, busca, HATEOAS e README atualizado	✅ Concluída
-Próximas etapas	Interface visual (Blazor) e integração externa	🔜 Planejado
+1ª Entrega	Estrutura base, entidades, EF Core e DI	✅ Concluída
+2ª Entrega	Controllers, CRUD, busca, HATEOAS e testes	✅ Concluída
+Próximas Etapas	Interface visual (Blazor) e integração externa	🔜 Planejado
 🧩 Conclusão
 
-O NoisEmap apresenta uma arquitetura sólida baseada em boas práticas de desenvolvimento corporativo com .NET, aplicando conceitos de Clean Architecture, Injeção de Dependência, Entity Framework Core, Minimal API e HATEOAS.
-O sistema está pronto para expansão e integração com novas camadas de visualização e análise geoespacial.
+O NoisEmap apresenta uma arquitetura sólida e escalável, baseada em boas práticas de Clean Architecture, Injeção de Dependência e Entity Framework Core.
+O sistema está pronto para evoluir com novas camadas de visualização (ex.: Blazor) e módulos de análise geoespacial.
 
 👨‍💻 Autor
 
 Rafael Terra Teodoro
 RM560955 – Advanced Business Development with .NET
 
-💯 Observação Final:
+💯 Observação Final
 
-Este README agora:
+Este README documenta de forma completa o desenvolvimento das Sprints 1 e 2, incluindo:
 
-Explica o progresso do projeto
+Estrutura técnica do projeto
 
-Mostra testes básicos realizados
+Tecnologias utilizadas
 
-Detalha endpoints com exemplos reais
+Endpoints e exemplos reais
 
-Usa formatação e seções profissionais
+Testes realizados
+
+Status de evolução
