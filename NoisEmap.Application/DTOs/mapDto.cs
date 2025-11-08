@@ -1,9 +1,10 @@
-﻿namespace NoisEmap.Application.Dtos // <--- ATENÇÃO AO NOME: Dtos
+﻿namespace NoisEmap.Application.DTOs
 {
     public class MapDto
     {
         public int Id { get; set; }
-        public string Nome { get; set; } = string.Empty;
-        public string Descricao { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
+        public double NoiseLevel { get; set; }
+        public DateTime RecordedAt { get; set; }
     }
 }

@@ -1,12 +1,13 @@
-﻿using NoisEmap.Application.Dtos; // <-- CORRIGIDO: Deve ser Dtos (não DTOs)
+﻿using NoisEmap.Domain.Interfaces;
+using NoisEmap.Application.DTOs;
 using NoisEmap.Application.Interfaces;
-using NoisEmap.Domain.Interfaces;
+using NoisEmap.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System; // <-- ESSENCIAL: Para usar 'NotImplementedException'
 
 namespace NoisEmap.Application.Services
 {
+    // O IMapService exige a implementação de todos os métodos abaixo
     public class MapService : IMapService
     {
         private readonly IMapRepository _mapRepository;
@@ -16,34 +17,64 @@ namespace NoisEmap.Application.Services
             _mapRepository = mapRepository;
         }
 
-        public Task<IEnumerable<MapDto>> GetAllAsync()
+        // Método corrigido para usar os argumentos de paginação (GetAllAsync do IMapRepository)
+        public async Task<IEnumerable<Map>> GetAllAsync()
         {
-            // Substitua esta linha pela sua lógica real de mapeamento e retorno.
-            throw new NotImplementedException();
+            // Usando os valores padrão para page, pageSize e locationFilter
+            return await _mapRepository.GetAllAsync(1, 10, null);
         }
 
-        public Task<MapDto?> GetByIdAsync(int id)
+        public async Task<Map> GetByIdAsync(int id)
         {
-            // Substitua esta linha pela sua lógica real.
-            throw new NotImplementedException();
+            return await _mapRepository.GetByIdAsync(id);
         }
 
-        public Task AddAsync(CreateMapDto dto)
+        public async Task<Map> AddAsync(CreateMapDto createMapDto)
         {
-            // Substitua esta linha pela sua lógica real.
-            throw new NotImplementedException();
+            var map = new Map
+            {
+                Name = createMapDto.Name,
+                Description = createMapDto.Description,
+                Latitude = createMapDto.Latitude,
+                Longitude = createMapDto.Longitude,
+                Address = createMapDto.Address,
+
+                // CORREÇÃO CRÍTICA: Adicionando propriedades obrigatórias da Entidade Map
+                Location = createMapDto.Address ?? "Localização Desconhecida",
+                NoiseLevel = 0.0, // Valor padrão, pode ser ajustado
+                RecordedAt = System.DateTime.UtcNow // Data e hora atuais
+            };
+
+            return await _mapRepository.AddAsync(map);
         }
 
-        public Task UpdateAsync(int id, CreateMapDto dto)
+        public async Task<Map> UpdateAsync(int id, UpdateMapDto updateMapDto)
         {
-            // Substitua esta linha pela sua lógica real.
-            throw new NotImplementedException();
+            var map = await _mapRepository.GetByIdAsync(id);
+            if (map == null)
+                return null;
+
+            map.Name = updateMapDto.Name ?? map.Name;
+            map.Description = updateMapDto.Description ?? map.Description;
+            map.Latitude = updateMapDto.Latitude ?? map.Latitude;
+            map.Longitude = updateMapDto.Longitude ?? map.Longitude;
+            map.Address = updateMapDto.Address ?? map.Address;
+
+            // Atualiza Location usando Address
+            map.Location = updateMapDto.Address ?? map.Location;
+
+            return await _mapRepository.UpdateAsync(map);
         }
 
-        public Task DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            // Substitua esta linha pela sua lógica real.
-            throw new NotImplementedException();
+            var map = await _mapRepository.GetByIdAsync(id);
+            if (map == null)
+                return false;
+
+            // CORREÇÃO FINAL: Passando o ID (int) para o DeleteAsync do repositório
+            await _mapRepository.DeleteAsync(id);
+            return true;
         }
     }
 }

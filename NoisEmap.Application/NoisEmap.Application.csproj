@@ -8,7 +8,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\NoisEmap.Domain\NoisEmap.Domain.csproj" />
-		<ProjectReference Include="..\NoisEmap.Infrastructure\NoisEmap.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

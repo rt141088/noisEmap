@@ -1,50 +1,62 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using NoisEmap.Domain.Entities;
+﻿using NoisEmap.Domain.Entities;
 using NoisEmap.Domain.Interfaces;
+using NoisEmap.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NoisEmap.Infrastructure.Repositories
 {
     public class MapRepository : IMapRepository
     {
-        private readonly List<MapProject> _projects = new List<MapProject>();
+        private readonly ApplicationDbContext _context;
 
-        public async Task<IEnumerable<MapProject>> GetAllAsync()
+        public MapRepository(ApplicationDbContext context)
         {
-            // Simulação de acesso ao banco
-            return await Task.FromResult(_projects);
+            _context = context;
         }
 
-        public async Task<MapProject> GetByIdAsync(int id)
+        public async Task<IEnumerable<Map>> GetAllAsync(int page, int pageSize, string? location)
         {
-            var project = _projects.Find(p => p.Id == id);
-            return await Task.FromResult(project);
+            var query = _context.Maps.AsQueryable();
+
+            if (!string.IsNullOrEmpty(location))
+                query = query.Where(m => m.Location.Contains(location));
+
+            return await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
-        public async Task AddAsync(MapProject project)
+        public async Task<Map> GetByIdAsync(int id)
         {
-            _projects.Add(project);
-            await Task.CompletedTask;
+            return await _context.Maps.FindAsync(id);
         }
 
-        public async Task UpdateAsync(MapProject project)
+        public async Task<Map> AddAsync(Map map)
         {
-            var existing = _projects.Find(p => p.Id == project.Id);
-            if (existing != null)
-            {
-                existing.NomeProjeto = project.NomeProjeto;
-                existing.Descricao = project.Descricao;
-            }
-            await Task.CompletedTask;
+            _context.Maps.Add(map);
+            await _context.SaveChangesAsync();
+            return map;
+        }
+
+        public async Task<Map> UpdateAsync(Map map)
+        {
+            _context.Maps.Update(map);
+            await _context.SaveChangesAsync();
+            return map;
         }
 
         public async Task DeleteAsync(int id)
         {
-            var project = _projects.Find(p => p.Id == id);
-            if (project != null)
-                _projects.Remove(project);
-
-            await Task.CompletedTask;
+            var entity = await _context.Maps.FindAsync(id);
+            if (entity != null)
+            {
+                _context.Maps.Remove(entity);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
