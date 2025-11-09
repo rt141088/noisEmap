@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using NoisEmap.Application.Interfaces;
-using NoisEmap.Application.Services;
 using NoisEmap.Application.DTOs;
-using System.Linq; // Adicionado para usar .Count()
+using NoisEmap.Application.Services;
+using NoisEmap.Domain.Entities;
 
 namespace NoisEmap.Controllers
 {

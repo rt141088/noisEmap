@@ -12,6 +12,9 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 🚀 CONFIGURAÇÃO DA PORTA 5055
+builder.WebHost.UseUrls("http://localhost:5055");
+
 // =====================================
 // 📦 1. Configuração do Banco de Dados
 // =====================================
